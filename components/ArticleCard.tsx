@@ -82,6 +82,18 @@ export default function ArticleCard({
             </div>
           </div>
 
+          {/* ARTICLE PRINCIPAL */}
+          <input
+            type="text"
+            placeholder="Article principal (ex: corset, robe...)"
+            value={article.mainArticle}
+            onClick={(e) => e.stopPropagation()}
+            onChange={(e) => updateArticle(article.id, { mainArticle: e.target.value })}
+            className="w-full text-[11px] px-2 py-1 border border-border bg-surface2 text-text
+              placeholder:text-muted2 focus:outline-none focus:border-accent/50
+              font-mono tracking-wide"
+          />
+
           {/* FLOOR CHIPS */}
           <div className="flex flex-wrap gap-1">
             {FLOOR_OPTIONS.slice(0, 3).map((f) => (

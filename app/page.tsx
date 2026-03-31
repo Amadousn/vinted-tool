@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useAppStore } from "@/store/useAppStore"
+import { FLOOR_OPTIONS, FloorKey, Size } from "@/lib/prompts"
 import DropZone from "@/components/DropZone"
 import ArticleCard from "@/components/ArticleCard"
 import ResultPanel from "@/components/ResultPanel"
@@ -179,6 +180,16 @@ export default function Home() {
               </div>
             )}
 
+            {/* ── APPLY ALL ── */}
+            {articles.length > 1 && (
+              <BulkApply onApply={(floor, size) => {
+                articles.forEach((a) => updateArticle(a.id, {
+                  ...(floor ? { floor } : {}),
+                  ...(size  ? { size  } : {}),
+                }))
+              }} />
+            )}
+
             {/* ── ARTICLES ── */}
             {articles.length > 0 && (
               <>
@@ -245,6 +256,83 @@ function SectionLabel({ children, tag }: { children: React.ReactNode; tag?: stri
       {tag && <span className="text-[9px] font-mono text-accent/40 tracking-widest">[{tag}]</span>}
       <span className="text-[10px] font-bold text-muted tracking-widest uppercase font-mono">{children}</span>
       <div className="flex-1 h-px bg-border" />
+    </div>
+  )
+}
+
+const SIZES: Size[] = ["S", "M", "L", "XL"]
+
+function BulkApply({ onApply }: { onApply: (floor: FloorKey | null, size: Size | null) => void }) {
+  const [floor, setFloor] = useState<FloorKey | null>(null)
+  const [size,  setSize]  = useState<Size | null>(null)
+
+  const handleApply = () => {
+    if (!floor && !size) return
+    onApply(floor, size)
+  }
+
+  return (
+    <div className="border border-accent/20 bg-accent/4 p-4 flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <div className="w-1 h-1 bg-accent" />
+        <span className="text-[10px] font-bold text-accent tracking-widest uppercase font-mono">
+          Appliquer à tous les articles
+        </span>
+      </div>
+
+      {/* FLOOR */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Fond</span>
+        <div className="flex flex-wrap gap-1">
+          {FLOOR_OPTIONS.map((f) => (
+            <button key={f.key}
+              onClick={() => setFloor(floor === f.key ? null : f.key)}
+              className={[
+                "text-[10px] font-bold px-2 py-1 border transition-all uppercase tracking-wider font-mono",
+                floor === f.key
+                  ? "bg-accent border-accent text-bg"
+                  : "bg-surface2 border-border text-muted hover:border-accent/40 hover:text-accent",
+              ].join(" ")}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* SIZE */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Taille</span>
+        <div className="flex gap-1">
+          {SIZES.map((s) => (
+            <button key={s}
+              onClick={() => setSize(size === s ? null : s)}
+              className={[
+                "text-[10px] font-bold w-9 h-7 border transition-all font-mono",
+                size === s
+                  ? "bg-accent border-accent text-bg"
+                  : "bg-surface2 border-border text-muted hover:border-accent/40 hover:text-accent",
+              ].join(" ")}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* APPLY */}
+      <button
+        onClick={handleApply}
+        disabled={!floor && !size}
+        className={[
+          "w-full py-2 text-[11px] font-black tracking-[0.2em] uppercase font-mono border transition-all",
+          floor || size
+            ? "bg-accent text-bg border-accent hover:brightness-110 active:scale-[0.99]"
+            : "bg-surface2 text-muted border-border opacity-40 cursor-not-allowed",
+        ].join(" ")}
+      >
+        APPLIQUER À TOUS ({[floor && "fond", size && `T.${size}`].filter(Boolean).join(" + ")})
+      </button>
     </div>
   )
 }
