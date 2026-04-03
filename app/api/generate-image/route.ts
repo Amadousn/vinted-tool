@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { editProductImage } from "@/lib/gemini"
 import { buildFloorPrompt, FLOOR_BASE, FloorKey } from "@/lib/prompts"
 
+export const maxDuration = 60
+
 export async function POST(req: NextRequest) {
   try {
     const { imageBase64, mimeType, floor, mainArticle } = await req.json()

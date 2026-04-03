@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { generateVintedDescription } from "@/lib/gemini"
 import { DESC_PROMPT, Size } from "@/lib/prompts"
 
+export const maxDuration = 60
+
 export async function POST(req: NextRequest) {
   try {
     const { imageBase64, mimeType, size } = await req.json()
