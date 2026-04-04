@@ -16,8 +16,9 @@
 2. Sélectionne ton fork `vinted-tool`
 3. Dans **Environment Variables**, ajoute :
    ```
-   GEMINI_API_KEY = AIzaSyBZJsOC1RjwU5sCeuoAks5ZYcg86BSau8E
+   GEMINI_API_KEY = [ta_clé_API_Gemini]
    ```
+   ⚠️ **Obtenir une clé API** : Va sur [Google AI Studio](https://aistudio.google.com/app/apikey) et crée une clé gratuite
 4. Clique **Deploy**
 
 ### 4️⃣ C'est prêt ! 🎉
