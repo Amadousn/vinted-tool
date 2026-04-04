@@ -22,17 +22,25 @@ export async function generateArticle(
   try {
     const { base64: frontBase64, mimeType } = await fileToBase64(article.frontFile)
 
+    const parseResponse = async (r: Response) => {
+      if (!r.ok) {
+        const text = await r.text()
+        throw new Error(text || `Erreur HTTP ${r.status}`)
+      }
+      return r.json()
+    }
+
     const imagePromise = fetch("/api/generate-image", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ imageBase64: frontBase64, mimeType, floor: article.floor, mainArticle: article.mainArticle }),
-    }).then((r) => r.json())
+    }).then(parseResponse)
 
     const descPromise = fetch("/api/generate-desc", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ imageBase64: frontBase64, mimeType, size: article.size }),
-    }).then((r) => r.json())
+    }).then(parseResponse)
 
     let backImagePromise: Promise<{ image?: string } | null> = Promise.resolve(null)
     if (article.backFile) {
@@ -41,7 +49,7 @@ export async function generateArticle(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: backBase64, mimeType: backMime, floor: article.floor, mainArticle: article.mainArticle }),
-      }).then((r) => r.json())
+      }).then(parseResponse)
     }
 
     const [imageResult, descResult, backImageResult] = await Promise.all([

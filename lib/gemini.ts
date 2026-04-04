@@ -32,7 +32,7 @@ export async function generateVintedDescription(
   mimeType: string,
   descPrompt: string
 ): Promise<string> {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" })
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
 
   const result = await model.generateContent([
     { inlineData: { data: imageBase64, mimeType } },
