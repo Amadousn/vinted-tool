@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { Chakra_Petch, DM_Mono } from "next/font/google"
 import "./globals.css"
-import WalkingMan from "@/components/WalkingMan"
 
 const chakraPetch = Chakra_Petch({
   subsets: ["latin"],
@@ -25,7 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${chakraPetch.variable} ${dmMono.variable}`}>
       <body suppressHydrationWarning>
         {children}
-        <WalkingMan />
       </body>
     </html>
   )

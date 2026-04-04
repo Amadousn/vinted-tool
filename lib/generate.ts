@@ -48,7 +48,7 @@ export async function generateArticle(
       backImagePromise = fetch("/api/generate-image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: backBase64, mimeType: backMime, floor: article.floor, mainArticle: article.mainArticle }),
+        body: JSON.stringify({ imageBase64: backBase64, mimeType: backMime, floor: article.floor, mainArticle: article.mainArticle, isBack: true }),
       }).then(parseResponse)
     }
 

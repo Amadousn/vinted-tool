@@ -28,13 +28,15 @@ CRITICAL — ITEMS RULE: Include ONLY the exact clothing item(s) already visible
 `
 
 export const FLOOR_BASE: Record<FloorKey, string> = {
-  default_flat: `Create an ultra-realistic amateur-style product photo of a clothing item (the two I'll provide) laid flat naturally on a tiled floor.
+  default_flat: `Create an ultra-realistic amateur-style product photo of a single clothing item laid flat naturally on a tiled floor.
 
 The floor must look 100% real, like a normal apartment floor — light beige or neutral ceramic tiles, slightly matte finish, with thin grout lines and soft daylight reflection. The carrelage should feel authentic and lived-in, not studio-perfect.
 
 The photo must look like it was taken casually at home with an iPhone 15 Pro, under natural daylight from a nearby window (soft side lighting, gentle shadows, no harsh contrast).
 
-The garment should lie flat but not perfectly symmetrical, with light wrinkles and texture visible to show the fabric's real feel. Kindly generate thesingle picture that has both images as front and back. Also leave some gap between the two items in the image to differentiate the front and back.
+The garment should lie flat but not perfectly symmetrical, with light wrinkles and texture visible to show the fabric's real feel.
+
+FRAMING RULE: The ENTIRE garment must be fully visible in the frame with generous margin on all sides. Zoom out enough so no part of the clothing is cropped or cut off. The image must be square (1:1 aspect ratio).
 
 Camera angle: slightly above the ground (not perfectly top-down), as if someone leaned over to take the picture by hand.
 
@@ -42,7 +44,7 @@ Lens style: realistic iPhone perspective (wide but natural), with good sharpness
 
 No walls, no background props, no editing filters — only the clothing item and the tiled floor.
 
-Ensure realistic color tones, natural shadows, and authentic lighting like a genuine amateur photo taken in a home environment.The goal is to keep the same background with no sunlight. top only and make sure the image frame is square`,
+Ensure realistic color tones, natural shadows, and authentic lighting like a genuine amateur photo taken in a home environment. No direct sunlight, only soft ambient daylight. Preserve exact colors, graphics, logos and texture of the clothing — only change the surface and lighting.`,
 
   concrete: `Take the clothing item(s) in this image and place them in a product photography scene:
 - Garments laid casually on a medium grey concrete floor
@@ -79,8 +81,13 @@ ${BASE_STYLE}`,
 /** Kept for backward compat — use buildFloorPrompt() for new calls */
 export const FLOOR_PROMPTS: Record<FloorKey, string> = FLOOR_BASE
 
-export function buildFloorPrompt(floor: FloorKey, mainArticle?: string): string {
-  return `${FLOOR_BASE[floor]}\n${isolationRule(mainArticle)}`
+const backSideRule = `
+BACK SIDE RULE: This image shows the BACK side of the garment. You MUST preserve this exact orientation — do NOT flip, mirror, or rotate the garment. The back of the clothing (with its seams, tags, back print, or plain fabric) must remain facing the camera exactly as provided. Do NOT show the front side.`
+
+export function buildFloorPrompt(floor: FloorKey, mainArticle?: string, isBack?: boolean): string {
+  let prompt = `${FLOOR_BASE[floor]}\n${isolationRule(mainArticle)}`
+  if (isBack) prompt += `\n${backSideRule}`
+  return prompt
 }
 
 export const DESC_PROMPT = (size: Size) => `Tu es mon assistant pour créer des fiches Vinted. Suis EXACTEMENT ce format, sans aucune variation, sans titres de section, sans emojis, directement le contenu brut :

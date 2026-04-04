@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { ArticleItem, useAppStore } from "@/store/useAppStore"
 import { FLOOR_OPTIONS, FloorKey, Size } from "@/lib/prompts"
 import { generateArticle } from "@/lib/generate"
@@ -47,19 +48,21 @@ export default function ArticleCard({
       <div className={["absolute top-0 left-0 w-0.5 h-full transition-all", accentLine].join(" ")} />
 
       <div className="p-4 grid gap-3.5 items-start pl-5"
-        style={{ gridTemplateColumns: "96px 1fr auto" }}>
+        style={{ gridTemplateColumns: "140px 1fr auto" }}>
 
-        {/* THUMBNAIL */}
-        <div className="relative overflow-hidden bg-surface2 border border-border"
-          style={{ width: 96, height: 96 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={article.frontPreview} alt="article" className="w-full h-full object-cover" />
-          {/* Back indicator */}
-          {article.backFile && (
-            <div className="absolute bottom-1 right-1 bg-accent text-bg text-[8px] font-black px-1 tracking-wider">
-              2P
+        {/* THUMBNAILS: FRONT + BACK */}
+        <div className="flex gap-1.5" style={{ width: 140 }}>
+          {/* Front */}
+          <div className="relative overflow-hidden bg-surface2 border border-border flex-1"
+            style={{ height: 96 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={article.frontPreview} alt="front" className="w-full h-full object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-[7px] text-center text-white/70 font-mono uppercase tracking-widest py-px">
+              Face
             </div>
-          )}
+          </div>
+          {/* Back */}
+          <BackZone article={article} updateArticle={updateArticle} />
         </div>
 
         {/* META */}
@@ -121,24 +124,21 @@ export default function ArticleCard({
             </select>
           </div>
 
-          {/* SIZE + BACK */}
-          <div className="flex items-center gap-2">
-            <div className="flex gap-1">
-              {SIZES.map((s) => (
-                <button key={s}
-                  onClick={(e) => { e.stopPropagation(); updateArticle(article.id, { size: s }) }}
-                  className={[
-                    "text-[10px] font-bold w-7 h-6 border transition-all font-mono",
-                    article.size === s
-                      ? "bg-accent border-accent text-bg"
-                      : "bg-surface2 border-border text-muted hover:border-accent/40 hover:text-accent",
-                  ].join(" ")}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-            <BackToggle article={article} updateArticle={updateArticle} />
+          {/* SIZE */}
+          <div className="flex gap-1">
+            {SIZES.map((s) => (
+              <button key={s}
+                onClick={(e) => { e.stopPropagation(); updateArticle(article.id, { size: s }) }}
+                className={[
+                  "text-[10px] font-bold w-7 h-6 border transition-all font-mono",
+                  article.size === s
+                    ? "bg-accent border-accent text-bg"
+                    : "bg-surface2 border-border text-muted hover:border-accent/40 hover:text-accent",
+                ].join(" ")}
+              >
+                {s}
+              </button>
+            ))}
           </div>
 
           {/* PROGRESS BAR */}
@@ -192,7 +192,7 @@ export default function ArticleCard({
   )
 }
 
-function BackToggle({
+function BackZone({
   article, updateArticle,
 }: {
   article: ArticleItem
@@ -200,32 +200,72 @@ function BackToggle({
 }) {
   const inputId = `back-${article.id}`
 
-  if (article.backFile) {
+  if (article.backFile && article.backPreview) {
     return (
-      <button
-        onClick={(e) => { e.stopPropagation(); updateArticle(article.id, { backFile: undefined, backPreview: undefined }) }}
-        className="text-[10px] text-accent/80 hover:text-red-400 transition-colors font-mono flex items-center gap-1 uppercase tracking-wider border border-accent/20 px-2 py-0.5 bg-accent/5"
-      >
-        DOS ✓
-        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
+      <div className="relative overflow-hidden bg-surface2 border border-accent/30 flex-1 group"
+        style={{ height: 96 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={article.backPreview} alt="dos" className="w-full h-full object-cover" />
+        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-[7px] text-center text-white/70 font-mono uppercase tracking-widest py-px">
+          Dos
+        </div>
+        <button
+          onClick={(e) => { e.stopPropagation(); updateArticle(article.id, { backFile: undefined, backPreview: undefined }) }}
+          className="absolute top-0.5 right-0.5 w-4 h-4 bg-black/60 hover:bg-red-500 text-white/80 hover:text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"
+        >
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
     )
+  }
+
+  const [dragging, setDragging] = React.useState(false)
+
+  const handleFile = (file: File) => {
+    if (file.type.startsWith("image/")) {
+      updateArticle(article.id, { backFile: file, backPreview: URL.createObjectURL(file) })
+    }
   }
 
   return (
     <>
       <button
         onClick={(e) => { e.stopPropagation(); document.getElementById(inputId)?.click() }}
-        className="text-[10px] text-muted hover:text-accent transition-colors border border-border px-2 py-0.5 hover:border-accent/40 font-mono uppercase tracking-wider"
+        onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setDragging(true) }}
+        onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setDragging(true) }}
+        onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setDragging(false) }}
+        onDrop={(e) => {
+          e.preventDefault(); e.stopPropagation(); setDragging(false)
+          const file = e.dataTransfer.files?.[0]
+          if (file) handleFile(file)
+        }}
+        className={[
+          "flex-1 border border-dashed flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group",
+          dragging
+            ? "border-accent bg-accent/10 scale-105"
+            : "border-border hover:border-accent/50 bg-surface2/50 hover:bg-accent/5",
+        ].join(" ")}
+        style={{ height: 96 }}
       >
-        + DOS
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+          className={dragging ? "text-accent" : "text-muted2 group-hover:text-accent transition-colors"}>
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        <span className={[
+          "text-[7px] font-mono uppercase tracking-widest transition-colors",
+          dragging ? "text-accent" : "text-muted2 group-hover:text-accent",
+        ].join(" ")}>
+          + Dos
+        </span>
       </button>
       <input id={inputId} type="file" accept="image/jpeg,image/png,image/webp" className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0]
-          if (file) updateArticle(article.id, { backFile: file, backPreview: URL.createObjectURL(file) })
+          if (file) handleFile(file)
         }} />
     </>
   )

@@ -36,7 +36,7 @@ export const useAppStore = create<AppStore>((set) => ({
           id,
           frontFile: front,
           frontPreview: URL.createObjectURL(front),
-          floor: "concrete",
+          floor: "default_flat",
           size: "M",
           mainArticle: "",
           generatedImages: [],

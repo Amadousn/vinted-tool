@@ -6,13 +6,13 @@ export const maxDuration = 60
 
 export async function POST(req: NextRequest) {
   try {
-    const { imageBase64, mimeType, floor, mainArticle } = await req.json()
+    const { imageBase64, mimeType, floor, mainArticle, isBack } = await req.json()
 
     if (!FLOOR_BASE[floor as FloorKey]) {
       return NextResponse.json({ error: "Sol invalide" }, { status: 400 })
     }
 
-    const prompt = buildFloorPrompt(floor as FloorKey, mainArticle)
+    const prompt = buildFloorPrompt(floor as FloorKey, mainArticle, isBack)
     const result = await editProductImage(imageBase64, mimeType, prompt)
     return NextResponse.json({ image: result })
   } catch (err: unknown) {
