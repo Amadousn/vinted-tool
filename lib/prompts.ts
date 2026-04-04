@@ -115,7 +115,7 @@ Compte EXACTEMENT 80 hashtags, tous sur une seule ligne, séparés par des espac
 
 [LIGNE VIDE]
 
-Marque : [INVENTE un nom de marque streetwear fictif en 1 ou 2 mots, toujours présent, toujours sur cette ligne avec le label "Marque :"]
+Marque : [INVENTE un nom de marque fictif UNIQUE et ORIGINAL en 1 ou 2 mots, adapté au style du vêtement (chic, casual, sport, vintage, streetwear, etc.). Ne réutilise JAMAIS les mêmes noms. Inspire-toi de sonorités variées : japonais (ex: Kōzō, Mugen), urbain (ex: Bloc97, Rawside), nordique (ex: Frøst, Vild), français (ex: Pavé, Brûlé), italien (ex: Vesto, Lume), futuriste (ex: Nøva, Xylo). Chaque fiche doit avoir un nom complètement différent. Toujours sur cette ligne avec le label "Marque :"]
 
 RÈGLES ABSOLUES :
 - La taille est ${size}. Tu DOIS écrire "Taille ${size}" exactement, sans jamais changer la lettre.
