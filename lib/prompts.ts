@@ -1,7 +1,8 @@
-export type FloorKey = "concrete" | "checker_black" | "checker_beige" | "vinyl_wood" | "carpet"
+export type FloorKey = "default_flat" | "concrete" | "checker_black" | "checker_beige" | "vinyl_wood" | "carpet"
 export type Size = "S" | "M" | "L" | "XL"
 
 export const FLOOR_OPTIONS: { key: FloorKey; label: string }[] = [
+  { key: "default_flat", label: "Défault flat" },
   { key: "concrete", label: "Béton gris" },
   { key: "checker_black", label: "Damier noir & blanc" },
   { key: "checker_beige", label: "Damier beige" },
@@ -27,6 +28,22 @@ CRITICAL — ITEMS RULE: Include ONLY the exact clothing item(s) already visible
 `
 
 export const FLOOR_BASE: Record<FloorKey, string> = {
+  default_flat: `Create an ultra-realistic amateur-style product photo of a clothing item (the two I'll provide) laid flat naturally on a tiled floor.
+
+The floor must look 100% real, like a normal apartment floor — light beige or neutral ceramic tiles, slightly matte finish, with thin grout lines and soft daylight reflection. The carrelage should feel authentic and lived-in, not studio-perfect.
+
+The photo must look like it was taken casually at home with an iPhone 15 Pro, under natural daylight from a nearby window (soft side lighting, gentle shadows, no harsh contrast).
+
+The garment should lie flat but not perfectly symmetrical, with light wrinkles and texture visible to show the fabric's real feel. Kindly generate thesingle picture that has both images as front and back. Also leave some gap between the two items in the image to differentiate the front and back.
+
+Camera angle: slightly above the ground (not perfectly top-down), as if someone leaned over to take the picture by hand.
+
+Lens style: realistic iPhone perspective (wide but natural), with good sharpness and balanced exposure.
+
+No walls, no background props, no editing filters — only the clothing item and the tiled floor.
+
+Ensure realistic color tones, natural shadows, and authentic lighting like a genuine amateur photo taken in a home environment.The goal is to keep the same background with no sunlight. top only and make sure the image frame is square`,
+
   concrete: `Take the clothing item(s) in this image and place them in a product photography scene:
 - Garments laid casually on a medium grey concrete floor
 - Surface: uniform smooth concrete, consistent medium grey tone across the entire frame, same grain density everywhere, no lighter or darker patches, no color variation whatsoever
