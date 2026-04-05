@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const result = await generateVintedDescription(imageBase64, mimeType, DESC_PROMPT(size as Size))
     return NextResponse.json({ description: result })
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Erreur inconnue"
+    const message = err instanceof Error ? err.message : "Unknown error"
     console.error("generate-desc error:", message)
     return NextResponse.json({ error: message }, { status: 500 })
   }

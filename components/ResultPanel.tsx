@@ -18,7 +18,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
   const handleDownload = (url: string, index: number) => {
     const a = document.createElement("a")
     a.href = url
-    a.download = `vinted-${article?.id}-${index === 0 ? "face" : "dos"}.jpg`
+    a.download = `vinted-${article?.id}-${index === 0 ? "front" : "back"}.jpg`
     a.click()
   }
 
@@ -30,7 +30,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
         <div className="flex items-center gap-2">
           <span className="text-[9px] font-mono text-accent/50 tracking-widest">[OUTPUT]</span>
           <span className="text-[11px] font-bold text-muted tracking-widest uppercase font-mono">
-            {article ? "Aperçu Résultat" : "Prêt à Générer"}
+            {article ? "Result Preview" : "Ready to Generate"}
           </span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -73,18 +73,18 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
           <div className="bg-accent/4 border border-accent/25 p-3 flex items-center gap-3">
             <div className="w-1.5 h-1.5 bg-accent animate-pulse shrink-0" />
             <span className="text-[10px] font-mono text-accent/80 tracking-wide uppercase leading-relaxed">
-              Système prêt — Importe un article pour démarrer
+              System ready — Import an item to get started
             </span>
           </div>
 
           {/* Features */}
           <div className="flex flex-col gap-1 fade-up">
-            <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-1">// FONCTIONNALITÉS</p>
+            <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-1">// FEATURES</p>
             {[
-              { icon: "▶", label: "RETOUCHE DE FOND",   desc: "Béton · Parquet · Damier · Moquette · Vinyle" },
-              { icon: "▶", label: "DESCRIPTION SEO",    desc: "Titre · État · Matière · Prix suggéré · Hashtags" },
-              { icon: "▶", label: "RECTO / VERSO",      desc: "Face + dos traités sur le même article" },
-              { icon: "▶", label: "BATCH MODE",         desc: "Générer tous les articles d'un coup" },
+              { icon: "▶", label: "BACKGROUND RETOUCHING", desc: "Concrete · Parquet · Checkerboard · Carpet · Vinyl" },
+              { icon: "▶", label: "SEO DESCRIPTION",       desc: "Title · Condition · Material · Suggested price · Hashtags" },
+              { icon: "▶", label: "FRONT / BACK",          desc: "Front + back processed on the same item" },
+              { icon: "▶", label: "BATCH MODE",            desc: "Generate all items at once" },
             ].map((f) => (
               <div key={f.label}
                 className="flex items-start gap-3 p-3 bg-surface2 border border-border hover:border-accent/20 transition-colors group">
@@ -99,7 +99,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
 
           {/* Fonds disponibles */}
           <div className="flex flex-col gap-1">
-            <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-1">// FONDS DISPONIBLES</p>
+            <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-1">// AVAILABLE FLOORS</p>
             <div className="grid grid-cols-2 gap-1">
               {FLOOR_OPTIONS.map((f) => (
                 <div key={f.key}
@@ -114,12 +114,12 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
           {/* Tech specs */}
           <div className="bg-surface2 border border-border">
             <div className="px-4 py-2.5 border-b border-border bg-bg/40">
-              <p className="text-[9px] font-mono text-accent/40 tracking-[0.3em] uppercase">// MODÈLES IA UTILISÉS</p>
+              <p className="text-[9px] font-mono text-accent/40 tracking-[0.3em] uppercase">// AI MODELS USED</p>
             </div>
             <div className="p-4 flex flex-col gap-0">
               {[
                 { k: "IMAGE",    v: "Neural Image v2.5",      dot: "bg-accent" },
-                { k: "TEXTE",    v: "Neural Text v2.0",       dot: "bg-green-400" },
+                { k: "TEXT",     v: "Neural Text v2.5",       dot: "bg-green-400" },
                 { k: "PIPELINE", v: "Neural Render v2.0",     dot: "bg-blue-400" },
               ].map(({ k, v, dot }) => (
                 <div key={k} className="flex items-center justify-between py-2 border-t border-border first:border-0">
@@ -137,9 +137,9 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
           <div className="bg-surface2 border border-border p-4">
             <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-3">// TIPS</p>
             {[
-              "Photo sur fond neutre = meilleur résultat",
-              "Ajouter la photo dos pour plus de détails",
-              "Utilise le fond béton pour les sneakers",
+              "Neutral background photo = best result",
+              "Add the back photo for more details",
+              "Use the concrete floor for sneakers",
             ].map((tip, i) => (
               <div key={i} className="flex items-start gap-2 py-1.5 border-t border-border first:border-0">
                 <span className="text-accent/40 text-[10px] font-mono shrink-0 mt-px">#{String(i+1).padStart(2,"0")}</span>
@@ -198,7 +198,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
                   </svg>
                 </div>
                 <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted text-center">
-                  {article?.status === "loading" ? "NEURAL RENDER..." : "APPUIE SUR GEN"}
+                  {article?.status === "loading" ? "NEURAL RENDER..." : "PRESS GEN"}
                 </p>
               </div>
             )}
@@ -253,7 +253,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              TÉLÉCHARGER L&apos;IMAGE
+              DOWNLOAD IMAGE
             </button>
           )}
 
@@ -263,7 +263,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[9px] font-mono text-accent/50 tracking-widest">[DESC]</span>
-              <span className="text-[11px] font-bold text-muted tracking-widest uppercase font-mono">Description Vinted</span>
+              <span className="text-[11px] font-bold text-muted tracking-widest uppercase font-mono">Vinted Description</span>
               <div className="flex-1 h-px bg-border" />
             </div>
 
@@ -283,7 +283,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
                       : "bg-surface border-border text-muted hover:bg-accent hover:text-bg hover:border-accent",
                   ].join(" ")}
                 >
-                  {copied ? "✓ COPIÉ" : "COPIER"}
+                  {copied ? "✓ COPIED" : "COPY"}
                 </button>
               </div>
 
@@ -293,7 +293,7 @@ export default function ResultPanel({ article }: { article: ArticleItem | null }
                 </pre>
               ) : (
                 <div className="text-[11px] text-muted2 py-8 text-center font-mono uppercase tracking-widest">
-                  <span className="animate-pulse">_</span> Génère un article pour voir la description
+                  <span className="animate-pulse">_</span> Generate an item to see the description
                 </div>
               )}
 

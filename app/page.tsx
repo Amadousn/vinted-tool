@@ -48,11 +48,11 @@ export default function Home() {
           {loadingCount > 0 ? (
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 bg-amber-400 animate-pulse" />
-              <span className="text-[10px] font-mono text-amber-400 tracking-widest uppercase">{loadingCount} EN COURS</span>
+              <span className="text-[10px] font-mono text-amber-400 tracking-widest uppercase">{loadingCount} PROCESSING</span>
             </div>
           ) : (
             <span className="text-[10px] text-muted font-mono tracking-widest uppercase">
-              {articles.length} ARTICLE{articles.length !== 1 ? "S" : ""}
+              {articles.length} ITEM{articles.length !== 1 ? "S" : ""}
             </span>
           )}
         </div>
@@ -89,17 +89,17 @@ export default function Home() {
                       VINTED<br/>TOOL
                     </h1>
                     <p className="text-sm text-muted mt-4 leading-relaxed max-w-md">
-                      Retouche automatique du fond de tes photos + génération de description SEO
-                      par l&apos;IA. Vends plus vite sur Vinted.
+                      AI-powered background retouching + SEO description generation.
+                      Sell faster on Vinted.
                     </p>
                   </div>
 
                   {/* Stats decoratifs */}
                   <div className="grid grid-cols-3 gap-1.5">
                     {[
-                      { val: "2.5", unit: "Flash", label: "Modèle Image" },
-                      { val: "5",   unit: "Fonds",  label: "Styles dispo" },
-                      { val: "∞",   unit: "Articles",label: "Batch mode" },
+                      { val: "2.5", unit: "Flash", label: "Image Model" },
+                      { val: "5",   unit: "Floors",  label: "Styles available" },
+                      { val: "∞",   unit: "Items",label: "Batch mode" },
                     ].map(({ val, unit, label }) => (
                       <div key={label} className="bg-surface2 border border-border p-3 text-center">
                         <div className="text-2xl font-black text-accent leading-none">{val}</div>
@@ -111,11 +111,11 @@ export default function Home() {
 
                   {/* Workflow steps */}
                   <div className="flex flex-col gap-1.5">
-                    <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-0.5">// COMMENT ÇA MARCHE</p>
+                    <p className="text-[9px] font-mono text-muted2 tracking-[0.3em] uppercase mb-0.5">// HOW IT WORKS</p>
                     {[
-                      { n: "01", title: "IMPORTER",    desc: "Glisse tes photos d'articles (JPG, PNG, WEBP)", active: true },
-                      { n: "02", title: "CONFIGURER",  desc: "Choisis le fond et la taille du vêtement",      active: false },
-                      { n: "03", title: "GÉNÉRER",     desc: "L'IA retouche les photos + génère la description SEO",   active: false },
+                      { n: "01", title: "IMPORT",      desc: "Drag & drop your item photos (JPG, PNG, WEBP)", active: true },
+                      { n: "02", title: "CONFIGURE",   desc: "Choose the floor style and clothing size",       active: false },
+                      { n: "03", title: "GENERATE",    desc: "AI retouches photos + generates SEO description", active: false },
                     ].map((step) => (
                       <div key={step.n}
                         className={[
@@ -142,7 +142,7 @@ export default function Home() {
             )}
 
             {/* ── IMPORT SECTION ── */}
-            <SectionLabel tag="01">IMPORTER DES ARTICLES</SectionLabel>
+            <SectionLabel tag="01">IMPORT ITEMS</SectionLabel>
             <DropZone />
 
             {/* Pipeline info — only when no articles */}
@@ -168,8 +168,8 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-1.5 fade-up">
                 {[
                   { val: articles.length, label: "TOTAL",      color: "text-accent" },
-                  { val: doneCount,       label: "GÉNÉRÉS",    color: "text-green-400" },
-                  { val: pendingCount,    label: "EN ATTENTE", color: "text-text" },
+                  { val: doneCount,       label: "DONE",       color: "text-green-400" },
+                  { val: pendingCount,    label: "PENDING",    color: "text-text" },
                 ].map(({ val, label, color }) => (
                   <div key={label} className="relative bg-surface2 border border-border p-4 text-center overflow-hidden">
                     <div className={`absolute inset-0 flex items-center justify-center text-7xl font-black opacity-[0.04] ${color} pointer-events-none select-none`}>{val}</div>
@@ -193,7 +193,7 @@ export default function Home() {
             {/* ── ARTICLES ── */}
             {articles.length > 0 && (
               <>
-                <SectionLabel tag="02">ARTICLES ({articles.length})</SectionLabel>
+                <SectionLabel tag="02">ITEMS ({articles.length})</SectionLabel>
                 <div className="flex flex-col gap-1.5">
                   {articles.map((article) => (
                     <ArticleCard
@@ -224,7 +224,7 @@ export default function Home() {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                   </svg>
-                  GÉNÉRER TOUT
+                  GENERATE ALL
                   {pendingCount > 0 && (
                     <span className="font-mono text-[11px] opacity-60">({pendingCount})</span>
                   )}
@@ -235,7 +235,7 @@ export default function Home() {
                     hover:border-red-500/40 hover:text-red-400 hover:bg-red-500/5
                     transition-colors text-[11px] font-mono uppercase tracking-widest"
                 >
-                  EFFACER
+                  CLEAR
                 </button>
               </div>
             )}
@@ -276,13 +276,13 @@ function BulkApply({ onApply }: { onApply: (floor: FloorKey | null, size: Size |
       <div className="flex items-center gap-2">
         <div className="w-1 h-1 bg-accent" />
         <span className="text-[10px] font-bold text-accent tracking-widest uppercase font-mono">
-          Appliquer à tous les articles
+          Apply to all items
         </span>
       </div>
 
       {/* FLOOR */}
       <div className="flex flex-col gap-1.5">
-        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Fond</span>
+        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Floor</span>
         <div className="flex flex-wrap gap-1">
           {FLOOR_OPTIONS.map((f) => (
             <button key={f.key}
@@ -302,7 +302,7 @@ function BulkApply({ onApply }: { onApply: (floor: FloorKey | null, size: Size |
 
       {/* SIZE */}
       <div className="flex flex-col gap-1.5">
-        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Taille</span>
+        <span className="text-[9px] font-mono text-muted2 tracking-widest uppercase">Size</span>
         <div className="flex gap-1">
           {SIZES.map((s) => (
             <button key={s}
@@ -331,7 +331,7 @@ function BulkApply({ onApply }: { onApply: (floor: FloorKey | null, size: Size |
             : "bg-surface2 text-muted border-border opacity-40 cursor-not-allowed",
         ].join(" ")}
       >
-        APPLIQUER À TOUS ({[floor && "fond", size && `T.${size}`].filter(Boolean).join(" + ")})
+        APPLY TO ALL ({[floor && "floor", size && `S.${size}`].filter(Boolean).join(" + ")})
       </button>
     </div>
   )

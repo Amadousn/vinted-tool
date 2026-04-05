@@ -2,12 +2,12 @@ export type FloorKey = "default_flat" | "concrete" | "checker_black" | "checker_
 export type Size = "S" | "M" | "L" | "XL"
 
 export const FLOOR_OPTIONS: { key: FloorKey; label: string }[] = [
-  { key: "default_flat", label: "Défault flat" },
-  { key: "concrete", label: "Béton gris" },
-  { key: "checker_black", label: "Damier noir & blanc" },
-  { key: "checker_beige", label: "Damier beige" },
-  { key: "vinyl_wood", label: "Bois gris vinyl" },
-  { key: "carpet", label: "Tapis maison" },
+  { key: "default_flat", label: "Default Flat" },
+  { key: "concrete", label: "Grey Concrete" },
+  { key: "checker_black", label: "B&W Checkerboard" },
+  { key: "checker_beige", label: "Beige Checkerboard" },
+  { key: "vinyl_wood", label: "Grey Vinyl Wood" },
+  { key: "carpet", label: "Home Carpet" },
 ]
 
 const isolationRule = (mainArticle?: string) =>

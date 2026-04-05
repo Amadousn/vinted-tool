@@ -16,12 +16,12 @@ const dmMono = DM_Mono({
 
 export const metadata: Metadata = {
   title: "Vinted Tool",
-  description: "Générateur de photos et descriptions Vinted",
+  description: "AI photo retouching & description generator for Vinted",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${chakraPetch.variable} ${dmMono.variable}`}>
+    <html lang="en" className={`${chakraPetch.variable} ${dmMono.variable}`}>
       <body suppressHydrationWarning>
         {children}
       </body>

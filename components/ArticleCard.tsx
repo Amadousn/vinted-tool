@@ -58,7 +58,7 @@ export default function ArticleCard({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={article.frontPreview} alt="front" className="w-full h-full object-cover" />
             <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-[7px] text-center text-white/70 font-mono uppercase tracking-widest py-px">
-              Face
+              Front
             </div>
           </div>
           {/* Back */}
@@ -81,14 +81,14 @@ export default function ArticleCard({
             <div className="text-[10px] text-muted mt-0.5 uppercase tracking-[0.2em] font-mono pl-3.5">
               {article.status === "loading"
                 ? "NEURAL PROC..."
-                : `${FLOOR_OPTIONS.find((f) => f.key === article.floor)?.label.toUpperCase()} · TAILLE ${article.size}`}
+                : `${FLOOR_OPTIONS.find((f) => f.key === article.floor)?.label.toUpperCase()} · SIZE ${article.size}`}
             </div>
           </div>
 
           {/* ARTICLE PRINCIPAL */}
           <input
             type="text"
-            placeholder="Article principal (ex: corset, robe...)"
+            placeholder="Main item (e.g. corset, dress...)"
             value={article.mainArticle}
             onClick={(e) => e.stopPropagation()}
             onChange={(e) => updateArticle(article.id, { mainArticle: e.target.value })}
@@ -205,9 +205,9 @@ function BackZone({
       <div className="relative overflow-hidden bg-surface2 border border-accent/30 flex-1 group"
         style={{ height: 96 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={article.backPreview} alt="dos" className="w-full h-full object-cover" />
+        <img src={article.backPreview} alt="back" className="w-full h-full object-cover" />
         <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-[7px] text-center text-white/70 font-mono uppercase tracking-widest py-px">
-          Dos
+          Back
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); updateArticle(article.id, { backFile: undefined, backPreview: undefined }) }}
@@ -259,7 +259,7 @@ function BackZone({
           "text-[7px] font-mono uppercase tracking-widest transition-colors",
           dragging ? "text-accent" : "text-muted2 group-hover:text-accent",
         ].join(" ")}>
-          + Dos
+          + Back
         </span>
       </button>
       <input id={inputId} type="file" accept="image/jpeg,image/png,image/webp" className="hidden"

@@ -25,7 +25,7 @@ export async function generateArticle(
     const parseResponse = async (r: Response) => {
       if (!r.ok) {
         const text = await r.text()
-        throw new Error(text || `Erreur HTTP ${r.status}`)
+        throw new Error(text || `HTTP Error ${r.status}`)
       }
       return r.json()
     }
@@ -70,7 +70,7 @@ export async function generateArticle(
       description: descResult.description,
     })
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Erreur inconnue"
+    const message = err instanceof Error ? err.message : "Unknown error"
     updateArticle(article.id, { status: "error", error: message })
   }
 }

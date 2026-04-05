@@ -82,17 +82,17 @@ export default function DropZone() {
           "text-xl font-black tracking-[0.3em] uppercase transition-all duration-300",
           dragging ? "neon-text" : "text-text group-hover:text-accent",
         ].join(" ")}>
-          {dragging ? "LÂCHE ICI" : "DRAG & DROP"}
+          {dragging ? "DROP HERE" : "DRAG & DROP"}
         </p>
         <p className="text-xs font-mono text-muted mt-2 tracking-[0.2em] uppercase">
-          {dragging ? "Relâche pour importer" : "Tes articles photo — multi-fichiers"}
+          {dragging ? "Release to import" : "Your item photos — multi-file supported"}
         </p>
       </div>
 
       {/* Divider */}
       <div className="flex items-center gap-3 w-full max-w-[220px] z-10">
         <div className="flex-1 h-px bg-border" />
-        <span className="text-[10px] font-mono text-muted2 tracking-[0.25em] uppercase">ou clique</span>
+        <span className="text-[10px] font-mono text-muted2 tracking-[0.25em] uppercase">or click</span>
         <div className="flex-1 h-px bg-border" />
       </div>
 

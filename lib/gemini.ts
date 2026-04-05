@@ -24,7 +24,7 @@ export async function editProductImage(
       return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`
     }
   }
-  throw new Error("Aucune image retournée par Gemini")
+  throw new Error("No image returned by Gemini")
 }
 
 export async function generateVintedDescription(

@@ -9,14 +9,14 @@ export async function POST(req: NextRequest) {
     const { imageBase64, mimeType, floor, mainArticle, isBack } = await req.json()
 
     if (!FLOOR_BASE[floor as FloorKey]) {
-      return NextResponse.json({ error: "Sol invalide" }, { status: 400 })
+      return NextResponse.json({ error: "Invalid floor" }, { status: 400 })
     }
 
     const prompt = buildFloorPrompt(floor as FloorKey, mainArticle, isBack)
     const result = await editProductImage(imageBase64, mimeType, prompt)
     return NextResponse.json({ image: result })
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Erreur inconnue"
+    const message = err instanceof Error ? err.message : "Unknown error"
     console.error("generate-image error:", message)
     return NextResponse.json({ error: message }, { status: 500 })
   }
