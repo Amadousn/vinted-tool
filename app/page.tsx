@@ -17,8 +17,11 @@ export default function Home() {
   const doneCount = articles.filter((a) => a.status === "done").length
   const loadingCount = articles.filter((a) => a.status === "loading").length
 
-  const handleGenerateAll = () => {
-    articles.filter((a) => a.status === "idle").forEach((a) => generateArticle(a, updateArticle))
+  const handleGenerateAll = async () => {
+    const pending = articles.filter((a) => a.status === "idle")
+    for (const a of pending) {
+      await generateArticle(a, updateArticle)
+    }
   }
 
   return (
