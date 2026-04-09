@@ -90,36 +90,36 @@ export function buildFloorPrompt(floor: FloorKey, mainArticle?: string, isBack?:
   return prompt
 }
 
-export const DESC_PROMPT = (size: Size) => `Tu es mon assistant pour créer des fiches Vinted. Suis EXACTEMENT ce format, sans aucune variation, sans titres de section, sans emojis, directement le contenu brut :
-
-[LIGNE 1] Titre SEO : Nom du vêtement + couleur + 4 à 6 mots-clés séparés par " / "
-Exemple : Hoodie gris oversize / streetwear / unisexe / casual / tendance 2024
+export const DESC_PROMPT = (size: Size) => `[LIGNE 1] Titre SEO (MAX 100 caractères) : Nom du vêtement + couleur + mots-clés séparés par " / " (chaque mot-clé séparé individuellement par "/")
 
 [LIGNE VIDE]
 
 [LIGNE 2] Taille ${size}
-[LIGNE 3] Une phrase courte sur la coupe ou le style.
+[LIGNE 3] Une phrase courte décrivant la coupe ou le style du vêtement.
 [LIGNE 4] Très bon état, porté quelques fois.
-[LIGNE 5] (optionnel) Un petit détail utile si pertinent.
+[LIGNE 5] (optionnel) Ajoute un détail utile uniquement si pertinent.
 
 [LIGNE VIDE]
 
 Mensurations taille ${size} :
-Invente des mensurations réalistes selon le type de vêtement. Pas de "environ" ni "~".
+Invente des mensurations réalistes adaptées au type de vêtement. Interdiction d'utiliser "environ" ou "~".
 Hauts → Longueur : XXcm / Poitrine : XXcm / Épaules : XXcm / Manches : XXcm
 Bas → Tour de taille : XXcm / Hanches : XXcm / Longueur : XXcm
 
 [LIGNE VIDE]
 
-Compte EXACTEMENT 80 hashtags, tous sur une seule ligne, séparés par des espaces, en FR + EN + ES + DE + IT. Aucun hashtag de marque réelle. Exactement 80, ni plus ni moins.
+Ajoute EXACTEMENT 80 hashtags sur UNE SEULE ligne, séparés uniquement par des espaces.
+Les hashtags doivent être optimisés SEO (mélange de français, anglais, espagnol, allemand, italien).
+Interdiction d'utiliser des marques réelles.
 
 [LIGNE VIDE]
 
-Marque : [INVENTE un nom de marque fictif UNIQUE et ORIGINAL en 1 ou 2 mots, adapté au style du vêtement (chic, casual, sport, vintage, streetwear, etc.). Ne réutilise JAMAIS les mêmes noms. Inspire-toi de sonorités variées : japonais (ex: Kōzō, Mugen), urbain (ex: Bloc97, Rawside), nordique (ex: Frøst, Vild), français (ex: Pavé, Brûlé), italien (ex: Vesto, Lume), futuriste (ex: Nøva, Xylo). Chaque fiche doit avoir un nom complètement différent. Toujours sur cette ligne avec le label "Marque :"]
+Marque : [Invente un nom de marque fictif UNIQUE et ORIGINAL, 1 ou 2 mots, adapté au style du vêtement. Ne jamais réutiliser un nom.]
 
-RÈGLES ABSOLUES :
-- La taille est ${size}. Tu DOIS écrire "Taille ${size}" exactement, sans jamais changer la lettre.
-- Exactement 80 hashtags, compte-les avant de répondre.
-- La ligne "Marque : [nom]" est OBLIGATOIRE à la fin, toujours.
-- Aucun titre de section (pas de "TITRE", "DESCRIPTION", "HASHTAGS", etc.)
-- Réponds uniquement avec la fiche finale.`
+RÈGLES OBLIGATOIRES :
+
+Le titre ne doit jamais dépasser 100 caractères.
+Tu dois écrire exactement "Taille ${size}".
+Il doit y avoir exactement 80 hashtags (vérifie avant de répondre).
+La ligne "Marque : ..." est obligatoire et doit être la dernière ligne.
+Aucun titre de section, aucun emoji, aucun texte en dehors du format.`

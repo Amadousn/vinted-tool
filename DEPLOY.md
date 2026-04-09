@@ -16,15 +16,15 @@
 2. Sélectionne ton fork `vinted-tool`
 3. Dans **Environment Variables**, ajoute :
    ```
-   GEMINI_API_KEY = [ta_clé_API_Gemini]
+   OPENROUTER_API_KEY = [ta_clé_API_OpenRouter]
    ```
-   ⚠️ **Obtenir une clé API** : Va sur [Google AI Studio](https://aistudio.google.com/app/apikey) et crée une clé gratuite
+   ⚠️ **Obtenir une clé API** : Va sur [openrouter.ai/keys](https://openrouter.ai/keys) et crée une clé
 4. Clique **Deploy**
 
 ### 4️⃣ C'est prêt ! 🎉
 - Ton site sera disponible sur `ton-nom.vercel.app`
 - Partage ce lien avec qui tu veux
-- Tout est gratuit, pas de limite de temps
+- Les modèles utilisés sont gratuits sur OpenRouter
 
 ---
 
@@ -32,17 +32,15 @@
 
 Demande-moi l'URL de mon déploiement Vercel, tu pourras l'utiliser directement sans rien installer.
 
-⚠️ **Note** : Si on est trop nombreux à l'utiliser en même temps, il peut y avoir des ralentissements (limite API gratuite).
-
 ---
 
 ## 💡 Astuce
 
-Si tu veux ta propre clé API Gemini (pour avoir tes propres quotas) :
-1. Va sur [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Crée une clé API (gratuit)
+Si tu veux ta propre clé API OpenRouter (pour avoir tes propres quotas) :
+1. Va sur [openrouter.ai/keys](https://openrouter.ai/keys)
+2. Crée une clé API
 3. Dans Vercel → ton projet → Settings → Environment Variables
-4. Modifie `GEMINI_API_KEY` avec ta clé
+4. Ajoute `OPENROUTER_API_KEY` avec ta clé
 5. Redéploie
 
 ---
@@ -50,7 +48,7 @@ Si tu veux ta propre clé API Gemini (pour avoir tes propres quotas) :
 ## ❓ Problèmes ?
 
 - **Le site ne charge pas** : Attends 2-3 min après le déploiement
-- **Erreur API** : Vérifie que la clé Gemini est bien configurée
+- **Erreur API** : Vérifie que la clé OpenRouter est bien configurée
 - **Images ne se génèrent pas** : Vérifie la taille des images (max 20MB)
 
 Pour toute question, contacte-moi !

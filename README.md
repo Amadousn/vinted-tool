@@ -7,7 +7,7 @@
 - 📸 **Retouche de fond automatique** : 5 styles de sol disponibles (béton, damier, bois, tapis)
 - 🤖 **Description IA** : Génération automatique de titres SEO + mensurations + 80 hashtags multilingues
 - 📦 **Mode batch** : Traite plusieurs articles en même temps
-- ⚡ **Ultra rapide** : Powered by Google Gemini 2.5 Flash
+- ⚡ **Ultra rapide** : Powered by OpenRouter (Flux 2 Pro + Llama 3.3 70B)
 
 ## 🎯 Déploiement sur Vercel (GRATUIT)
 
@@ -24,21 +24,17 @@ cd vinted-tool
 2. Clique sur **"Add New Project"**
 3. Importe ce repository `vinted-tool`
 4. Dans **Environment Variables**, ajoute :
-   - `GEMINI_API_KEY` = ta clé API Gemini
+   - `OPENROUTER_API_KEY` = ta clé API OpenRouter
 5. Clique sur **Deploy**
 
 ✅ Ton site sera en ligne en ~2 minutes sur une URL type `vinted-tool.vercel.app`
 
-### Étape 3 : Configurer la clé API Gemini
+### Étape 3 : Configurer la clé API OpenRouter
 
-**Option A - Utiliser ma clé (pour tester)**
-La clé est déjà configurée dans le projet. Tu peux déployer directement.
-
-**Option B - Utiliser ta propre clé (recommandé pour usage intensif)**
-1. Va sur [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Crée une clé API gratuite
+1. Va sur [openrouter.ai](https://openrouter.ai/keys)
+2. Crée un compte et génère une clé API
 3. Dans Vercel → Settings → Environment Variables
-4. Modifie `GEMINI_API_KEY` avec ta nouvelle clé
+4. Ajoute `OPENROUTER_API_KEY` avec ta clé
 5. Redéploie l'app
 
 ## 💻 Développement local
@@ -49,7 +45,7 @@ npm install
 
 # Créer un fichier .env.local
 cp .env.example .env.local
-# Édite .env.local et ajoute ta clé GEMINI_API_KEY
+# Édite .env.local et ajoute ta clé OPENROUTER_API_KEY
 
 # Lancer le serveur de dev
 npm run dev
@@ -67,16 +63,11 @@ Ouvre [http://localhost:3000](http://localhost:3000)
 ## 🛠️ Stack technique
 
 - **Framework** : Next.js 16.2 (App Router)
-- **IA** : Google Gemini 2.5 Flash (image) + 2.0 Flash (texte)
+- **IA Image** : Flux 2 Pro (via OpenRouter)
+- **IA Texte** : Llama 3.3 70B Instruct (via OpenRouter)
 - **State** : Zustand
 - **Styling** : TailwindCSS v4
 - **Hosting** : Vercel
-
-## 📝 Limites de l'API gratuite Gemini
-
-- **2.5 Flash Image** : 10 requêtes/min
-- **2.0 Flash Text** : 15 requêtes/min
-- Largement suffisant pour un usage personnel !
 
 ## 🤝 Partager avec des amis
 
